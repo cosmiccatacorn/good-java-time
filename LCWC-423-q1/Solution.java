@@ -1,8 +1,7 @@
 class Solution {
-    public boolean increasingArr(int[] a){
-        int k = a.length;
-        for(int i = 0; i < k-1; i++){
-            if(a[i]> a[i+1]){
+    public boolean isIncreasing(int[] arr){
+        for(int i = 0; i < arr.length-1; i++){
+            if (arr[i] >= arr[i+1]){
                 return false;
             }
         }
@@ -10,16 +9,18 @@ class Solution {
     }
     
     public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
-        int [] a = new int[k];
-        int [] b = new int[k];
-
-        for(int i = 0; i < nums.size() - k; i++){
-            for(int j = 0; j < k; j++){
-                a[j] = nums.get(i+j);
-                b[j] = nums.get(i+j+k);
+        
+        while(nums.size() >= (k*2)){
+            int [] a = new int[k];
+            int [] b = new int[k];
+            for(int i = 0; i < k; i++){
+                a[i] = nums.get(i);
+                b[i] = nums.get((i+k));
             }
-            if(increasingArr(a)&&increasingArr(b)){
+            if(isIncreasing(a) && isIncreasing(b)){
                 return true;
+            } else {
+                nums.remove(0);
             }
         }
         return false;
